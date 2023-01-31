@@ -29,18 +29,34 @@ const months = [
 ];
 
 let weekArray = [];
+const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
+
 function buildCalendar() {
-    weekArray.forEach((dateTag) => {
+
+    for (let i = 0; i < 7; i++) {
         const day = document.createElement('h2');
+        day.textContent = dayArray[i];
         day.classList.add('h2');
         const date = document.createElement('div');
-        date.textContent = `${dateTag}`;
+        date.textContent = weekArray[i];
         date.classList.add('day');
         const column = document.createElement('div');
         column.classList.add('column');
         column.append(day, date);
         weekContainer.append(column);
-    })
+    }
+
+    // weekArray.forEach((dateTag) => {
+    //     const day = document.createElement('h2');
+    //     day.classList.add('h2');
+    //     const date = document.createElement('div');
+    //     date.textContent = `${dateTag}`;
+    //     date.classList.add('day');
+    //     const column = document.createElement('div');
+    //     column.classList.add('column');
+    //     column.append(day, date);
+    //     weekContainer.append(column);
+    // })
 }
 
 function getMonday() {
@@ -50,7 +66,6 @@ function getMonday() {
     console.log('now Monday: ', nowMon);
 
 }
-
 
 function initCalendar() {
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
@@ -67,8 +82,6 @@ function initCalendar() {
     console.log('this Sunday: ', thisMon);
     console.log(weekArray);
 
-    // const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
-
     buildCalendar();
 
 }
@@ -76,15 +89,17 @@ initCalendar();
 
 function getNextMonday() {
     const next = nowMon.getDate() - nowMon.getDay() + 8;
+    console.log(next);
     nextMon = new Date(nowMon.setDate(next));
-    nowMon = new Date(nowMon.setDate(next));
+    console.log('next Monday: ', nextMon);
+    // nowMon = new Date(nowMon.setDate(next));
     console.log('now Monday: ', nowMon);
 }
 
 function getLastSunday() {
     const last = nowMon.getDate() - nowMon.getDay() - 6;
     lastMon = new Date(nowMon.setDate(last));
-    nowMon = new Date(nowMon.setDate(last));
+    // nowMon = new Date(nowMon.setDate(last));
     console.log('now Monday: ', nowMon);
 }
 
