@@ -125,6 +125,10 @@ h2 {
   width: 35px;
 }
 
+.events {
+  margin-top: 10px;
+}
+
 .column {
   width: 14.28%;
   min-height: 400px;
