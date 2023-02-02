@@ -34,6 +34,14 @@ let id = [];
 let weekArray = [];
 const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
 
+let eventsUl = document.querySelectorAll(".events");
+const addEventWrapper = document.querySelector(".add-event-wrapper ");
+const addEventTitle = document.querySelector(".event-name ");
+const addEventSubmit = document.querySelector(".add-event-btn ");
+
+let updatedOnLoad = false;
+let eventsArr = [];
+
 function getToday() {
     const todayTag = document.querySelectorAll("div.day")
     const todayId = `${realToday.getFullYear()}${months[realToday.getMonth()]}${realToday.getDate()}`;
@@ -45,7 +53,7 @@ function getToday() {
 }
 
 function buildCalendar() {
-
+    
     for (let i = 0; i < 7; i++) {
         const column = document.createElement('div');
         column.classList.add('column');
@@ -69,14 +77,17 @@ function buildCalendar() {
         addBtn.setAttribute('id', id[i])
         column.append(day, date, event, addInput, addBtn);
         weekContainer.append(column);
-
+        
         if (day.textContent === dayArray[6] || day.textContent === dayArray[5]) {
             column.classList.add('column-dark');
         }
     }
+    eventsUl = document.querySelectorAll(".events");
 }
 
 function getMonday() {
+    nowMon = new Date();
+    console.log('nowMon:', nowMon);
     console.log(today);
     const first = today.getDate() - today.getDay() + 1;
     thisMon = new Date(today.setDate(first));
@@ -105,23 +116,24 @@ function initCalendar() {
     console.log(id);
 
     buildCalendar();
+    updateEvents();
     getToday();
 }
 
 initCalendar();
 
 function getNextMonday() {
-    console.log(nowMon);
+    console.log('nowMon:', nowMon);
     const next = nowMon.getDate() - nowMon.getDay() + 8;
     nextMon = new Date(nowMon.setDate(next));
-    console.log(nowMon);
+    console.log('nowMon:', nowMon);
 }
 
-function getLastSunday() {
-    console.log(nowMon);
+function getLastMonday() {
+    console.log('nowMon:', nowMon);
     const last = nowMon.getDate() - nowMon.getDay() - 6;
     lastMon = new Date(nowMon.setDate(last));
-    console.log(nowMon);
+    console.log('nowMon:', nowMon);
 }
 
 function getNextWeek() {
@@ -145,12 +157,13 @@ function getNextWeek() {
     console.log(weekArray);
  
     buildCalendar();
+    updateEvents();
     getToday();
 }
 
 function getLastWeek() {
     weekContainer.textContent = '';
-    getLastSunday()
+    getLastMonday()
     currMonth = lastMon.getMonth();
     currYear = lastMon.getFullYear();
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
@@ -167,9 +180,11 @@ function getLastWeek() {
         id[i] = `${currYear}${months[currMonth]}${weekArray[i]}`;
     }
     console.log(weekArray);
- 
+    
     buildCalendar();
+    updateEvents();
     getToday();
+    console.log(eventsUl);
 }
 
 prev.addEventListener("click", getLastWeek);
@@ -178,17 +193,6 @@ next.addEventListener("click", getNextWeek);
 todayBtn.addEventListener("click", () => {
     initCalendar();
 });
-
-// const eventDay = document.querySelector(".event-day");
-// const eventDate = document.querySelector(".event-date");
-const eventsUl = document.querySelectorAll(".events");
-const addEventWrapper = document.querySelector(".add-event-wrapper ");
-// const addEventCloseBtn = document.querySelector(".close ");
-const addEventTitle = document.querySelector(".event-name ");
-const addEventSubmit = document.querySelector(".add-event-btn ");
-
-let updatedOnLoad = false;
-let eventsArr = [];
 
 // console.log(eventsArr[0].id); //id
 // console.log(eventsArr[1].events[0].title); //task
@@ -227,6 +231,8 @@ function updateEvents() {
     }
 
     eventsArr.forEach( (eventArr) => {
+        console.log(eventsUl);
+        console.log(eventsArr);
         for (let i = 0; i < 7; i++) {
             // eventsUl[i].innerHTML = '';
             if (eventsUl[i].id === eventArr.id) {
