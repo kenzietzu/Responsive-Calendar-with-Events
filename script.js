@@ -59,7 +59,15 @@ function buildCalendar() {
         event.textContent = '';
         event.classList.add('events');
         event.setAttribute('id', id[i])
-        column.append(day, date, event);
+        const addInput = document.createElement('INPUT');
+        addInput.classList.add('add-event-input');
+        addInput.setAttribute('type', 'text');
+        addInput.setAttribute('id', id[i])
+        const addBtn = document.createElement('span');
+        addBtn.textContent = '+ Add'
+        addBtn.classList.add('add-btn');
+        addBtn.setAttribute('id', id[i])
+        column.append(day, date, event, addInput, addBtn);
         weekContainer.append(column);
 
         if (day.textContent === dayArray[6] || day.textContent === dayArray[5]) {
@@ -196,7 +204,7 @@ function getSavedEvents() {
     } else {
         eventsArr = [
             {
-                id: '2023JAN31',
+                id: '2023JAN25',
                 events: [
                     {title: 'loreml oooo oo ooooo ooooooo',}, 
                     {title: 'fixing car',},
@@ -219,14 +227,12 @@ function updateEvents() {
     }
 
     eventsArr.forEach( (eventArr) => {
-        console.log(eventArr);
         for (let i = 0; i < 7; i++) {
-            console.log(eventsUl[i].id);
+            // eventsUl[i].innerHTML = '';
             if (eventsUl[i].id === eventArr.id) {
                 for (let k = 0; k < eventArr.events.length; k++) {
                     const item = document.createElement('li');
                     item.textContent = eventArr.events[k].title;
-                    console.log(item);
                     eventsUl[i].appendChild(item);
                 }
             }
@@ -237,3 +243,5 @@ function updateEvents() {
 }
 
 updateEvents();
+
+

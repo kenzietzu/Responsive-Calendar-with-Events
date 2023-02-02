@@ -66,6 +66,10 @@ h2 {
   border-radius: 6px;
 }
 
+.this-month {
+  font-size: 2.3rem;
+}
+
 /* set after behind the main element */
 .calendar::before,
 .calendar::after {
@@ -88,7 +92,7 @@ h2 {
 
 .calendar .month-container {
   width: 100%;
-  height: 120px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -113,7 +117,7 @@ h2 {
   background-color: #fff;
   position: relative;
   width: 1360px;
-  min-height: 400px;
+  min-height: 500px;
   margin: 0 auto;
   padding: 5px;
   display: flex;
@@ -160,90 +164,33 @@ h2 {
   font-weight: 800;
 }
 
-/* add event */
-
-.add-event-wrapper {
-  position: relative;
-  top: 30px;
-}
-.add-event-header {
-  width: 500px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  color: #ffffff;
-  border-bottom: 1px solid #f5f5f5;
-}
-.add-event-header .close {
-  font-size: 2rem;
-  cursor: pointer;
-}
-.add-event-header .close:hover {
-  color: var(--primary-clr-darker);
-}
-.add-event-header .title {
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-.add-event-body {
-  width: 500px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 20px;
-}
-.add-event-body .add-event-input {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.add-event-body .add-event-input input {
-  width: 100%;
-  height: 100%;
-  outline: none;
-  border: none;
-  border-bottom: 1px solid #f5f5f5;
-  padding: 0 10px;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--primary-clr-darker);
-}
-.add-event-body .add-event-input input::placeholder {
-  color: #a5a5a5;
-}
-.add-event-body .add-event-input input:focus {
-  border-bottom: 1px solid var(--primary-clr-darker);
-}
-.add-event-body .add-event-input input:focus::placeholder {
-  color: var(--primary-clr-darker);
-}
-.add-event-footer {
-  display: flex;
-  padding: 20px;
-  justify-content: center;
-  position: flex;
-}
-.add-event-footer .add-event-btn {
+.add-event-input {
+  position: absolute;
+  bottom: 70px;
   height: 40px;
-  font-size: 1rem;
-  font-weight: 500;
+  border: 1px solid var(--primary-clr-darker);
+  color: var(--primary-clr-darker);
+}
+
+.add-btn {
+  background-color: #ffffff00;
+  position: absolute;
+  bottom: 40px;
+  height: 25px;
+  width: 50px;
+  font-size: 0.8rem;
   outline: none;
   border: none;
   background-color: transparent;
   color: var(--primary-clr-darker);
-  border-radius: 5px;
+  border-radius: 0px;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 5px 5px;
   border: 1px solid var(--primary-clr-darker);
   transition: all 0.4s;
 }
-.add-event-footer .add-event-btn:hover {
+
+.add-btn:hover {
   color: #fff;
   background-color: var(--primary-clr-darker);
 }
@@ -251,7 +198,8 @@ h2 {
 div .today-wrapper {
   position: flex;
   justify-content: flex-end;
-  margin: 20px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 .today-btn {
   height: 30px;
@@ -261,7 +209,7 @@ div .today-wrapper {
   border: none;
   background-color: transparent;
   color: var(--primary-clr-darker);
-  border-radius: 5px;
+  border-radius: 0px;
   cursor: pointer;
   padding: 5px 10px;
   border: 1px solid var(--primary-clr-darker);
