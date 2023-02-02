@@ -34,6 +34,16 @@ let id = [];
 let weekArray = [];
 const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
 
+function getToday() {
+    const todayTag = document.querySelectorAll("div.day")
+    const todayId = `${realToday.getFullYear()}${months[realToday.getMonth()]}${realToday.getDate()}`;
+    for (let i = 0; i < 7; i++) {
+        if (id[i] === todayId) {
+            todayTag[i].classList.add('today');
+        }
+    }
+}
+
 function buildCalendar() {
 
     for (let i = 0; i < 7; i++) {
@@ -51,6 +61,10 @@ function buildCalendar() {
         event.setAttribute('id', id[i])
         column.append(day, date, event);
         weekContainer.append(column);
+
+        if (day.textContent === dayArray[6] || day.textContent === dayArray[5]) {
+            column.classList.add('column-dark');
+        }
     }
 }
 
@@ -87,16 +101,6 @@ function initCalendar() {
 }
 
 initCalendar();
-
-function getToday() {
-    const todayTag = document.querySelectorAll("div.day")
-    const todayId = `${realToday.getFullYear()}${months[realToday.getMonth()]}${realToday.getDate()}`;
-    for (let i = 0; i < 7; i++) {
-        if (id[i] === todayId) {
-            todayTag[i].classList.add('today');
-        }
-    }
-}
 
 function getNextMonday() {
     console.log(nowMon);
@@ -175,28 +179,45 @@ const addEventWrapper = document.querySelector(".add-event-wrapper ");
 const addEventTitle = document.querySelector(".event-name ");
 const addEventSubmit = document.querySelector(".add-event-btn ");
 
-const eventsArr = [
-    {
-        id: '2023JAN31',
-        events: [
-            {title: 'grocery shopping',}, 
-            {title: 'fixing car',},
-        ],
-    },
-    {
-        id: '2023FEB2',
-        events: [
-            {title: 'having a facial',}, 
-            {title: 'get a haircut',},
-        ],
-    },
-];
+let updatedOnLoad = false;
+let eventsArr = [];
 
-console.log(eventsArr[0].id); //id
-console.log(eventsArr[1].events[0].title); //task
-console.log(eventsUl[1].id); //Ul id
+// console.log(eventsArr[0].id); //id
+// console.log(eventsArr[1].events[0].title); //task
+// console.log(eventsUl[1].id); //Ul id
 
-function buildEvents() {
+function updateSavedEvents() {
+    localStorage.setItem("events", JSON.stringify(eventsArr));
+}                        
+
+function getSavedEvents() {
+    if (localStorage.getItem("events")) {
+        eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    } else {
+        eventsArr = [
+            {
+                id: '2023JAN31',
+                events: [
+                    {title: 'loreml oooo oo ooooo ooooooo',}, 
+                    {title: 'fixing car',},
+                ],
+            },
+            {
+                id: '2023FEB2',
+                events: [
+                    {title: 'having a facial',}, 
+                    {title: 'get a haircuttttttt',},
+                ],
+            },
+        ];
+    }
+}                                                     
+
+function updateEvents() {
+    if(!updatedOnLoad) {
+        getSavedEvents();
+    }
+
     eventsArr.forEach( (eventArr) => {
         console.log(eventArr);
         for (let i = 0; i < 7; i++) {
@@ -211,22 +232,8 @@ function buildEvents() {
             }
         }
     });
+    updatedOnLoad = true;
+    updateSavedEvents();
 }
-buildEvents();
 
-// function buildEvents() {
-//     eventsArr.forEach((event) => {
-//         const {id, events} = event;
-//         for (let i = 0; i < 7; i++) {
-//             if (eventsContainer[i].id = id) {
-//                 const item = document.createElement('div');
-//                 item.textContent = events[i].title;
-//                 eventsContainer[i].appendChild(item);
-//             }
-//         }
-
-//     })
-// }
-
-
-// console.log(eventsContainer);
+updateEvents();

@@ -139,14 +139,20 @@ h2 {
   margin-bottom: 20px;
 }
 
+.column-dark {
+  background-color: #e9f9ff;
+}
+
 .column ul {
   list-style-type: square;
   font-size: 0.9rem;
+
 }
 
 .column li {
   margin-top: 10px;
   color: #0088d7;
+  white-space: normal;
 }
 
 .column .day {
