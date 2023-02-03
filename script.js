@@ -457,15 +457,15 @@ function getSavedEvents() {
             {
                 id: '2023JAN25',
                 events: [
-                    {title: 'loreml oooo oo ooooo ooooooo',}, 
-                    {title: 'fixing car',},
+                    {title: '滑鼠點擊即可刪除',}, 
+                    {title: 'delete on click',},
                 ],
             },
             {
                 id: '2023FEB2',
                 events: [
-                    {title: 'having a facial',}, 
-                    {title: 'get a haircuttttttt',},
+                    {title: '滑鼠點擊即可刪除',}, 
+                    {title: 'delete on click',},
                 ],
             },
         ];
