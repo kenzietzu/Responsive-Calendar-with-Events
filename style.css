@@ -168,8 +168,12 @@ h2 {
   position: absolute;
   bottom: 70px;
   height: 40px;
+  width: 150px;
   border: 1px solid var(--primary-clr-darker);
   color: var(--primary-clr-darker);
+  outline: none;
+  font-weight: 100;
+  font-size: 0.9rem;
 }
 
 .add-btn {

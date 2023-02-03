@@ -35,7 +35,9 @@ let weekArray = [];
 const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
 
 let eventsUl = document.querySelectorAll(".events");
-const addEventWrapper = document.querySelector(".add-event-wrapper ");
+let eventsInput = document.querySelectorAll(".add-event-input");
+let eventsBtn = document.querySelectorAll(".add-btn");
+const addEventWrapper = document.querySelector(".add-event-wrapper");
 const addEventTitle = document.querySelector(".event-name ");
 const addEventSubmit = document.querySelector(".add-event-btn ");
 
@@ -66,23 +68,27 @@ function buildCalendar() {
         const event = document.createElement('ul');
         event.textContent = '';
         event.classList.add('events');
-        event.setAttribute('id', id[i])
-        const addInput = document.createElement('INPUT');
+        event.setAttribute('id', id[i]);
+        const addInput = document.createElement('div');
         addInput.classList.add('add-event-input');
-        addInput.setAttribute('type', 'text');
-        addInput.setAttribute('id', id[i])
-        const addBtn = document.createElement('span');
-        addBtn.textContent = '+ Add'
+        addInput.setAttribute('id', id[i]);
+        addInput.setAttribute('contenteditable', 'true');
+        const addBtn = document.createElement('button');
+        addBtn.textContent = '+ Add';
         addBtn.classList.add('add-btn');
-        addBtn.setAttribute('id', id[i])
+        addBtn.setAttribute('id', id[i]);
+        addBtn.setAttribute('type', 'submit');
         column.append(day, date, event, addInput, addBtn);
         weekContainer.append(column);
         
         if (day.textContent === dayArray[6] || day.textContent === dayArray[5]) {
             column.classList.add('column-dark');
         }
+        
     }
     eventsUl = document.querySelectorAll(".events");
+    eventsInput = document.querySelectorAll(".add-event-input");
+    eventsBtn = document.querySelectorAll(".add-btn");
 }
 
 function getMonday() {
@@ -99,7 +105,7 @@ function initCalendar() {
     currMonth = realToday.getMonth();
     currYear = realToday.getFullYear();
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
-    weekContainer.textContent = '';
+    weekContainer.textContent = ''; //防止天數疊加
     
     weekArray[0] = thisMon.getDate();
     currMonth = thisMon.getMonth();
@@ -159,6 +165,13 @@ function getNextWeek() {
     buildCalendar();
     updateEvents();
     getToday();
+    eventsBtn[0].addEventListener("click", addInputFunc0);
+    eventsBtn[1].addEventListener("click", addInputFunc1);
+    eventsBtn[2].addEventListener("click", addInputFunc2);
+    eventsBtn[3].addEventListener("click", addInputFunc3);
+    eventsBtn[4].addEventListener("click", addInputFunc4);
+    eventsBtn[5].addEventListener("click", addInputFunc5);
+    eventsBtn[6].addEventListener("click", addInputFunc6);
 }
 
 function getLastWeek() {
@@ -184,11 +197,18 @@ function getLastWeek() {
     buildCalendar();
     updateEvents();
     getToday();
-    console.log(eventsUl);
+    eventsBtn[0].addEventListener("click", addInputFunc0);
+    eventsBtn[1].addEventListener("click", addInputFunc1);
+    eventsBtn[2].addEventListener("click", addInputFunc2);
+    eventsBtn[3].addEventListener("click", addInputFunc3);
+    eventsBtn[4].addEventListener("click", addInputFunc4);
+    eventsBtn[5].addEventListener("click", addInputFunc5);
+    eventsBtn[6].addEventListener("click", addInputFunc6);
 }
 
 prev.addEventListener("click", getLastWeek);
 next.addEventListener("click", getNextWeek);
+
 
 todayBtn.addEventListener("click", () => {
     initCalendar();
@@ -229,12 +249,11 @@ function updateEvents() {
     if(!updatedOnLoad) {
         getSavedEvents();
     }
-
+    for (let i = 0; i < 7; i++) {
+        eventsUl[i].textContent = '';
+    }
     eventsArr.forEach( (eventArr) => {
-        console.log(eventsUl);
-        console.log(eventsArr);
         for (let i = 0; i < 7; i++) {
-            // eventsUl[i].innerHTML = '';
             if (eventsUl[i].id === eventArr.id) {
                 for (let k = 0; k < eventArr.events.length; k++) {
                     const item = document.createElement('li');
@@ -247,7 +266,104 @@ function updateEvents() {
     updatedOnLoad = true;
     updateSavedEvents();
 }
+console.log('---', eventsArr[0].textContent);
 
-updateEvents();
+function addInputFunc0() {
+    const eventText = eventsInput[0].textContent;
+    const eventPush = {
+        id: eventsInput[0].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
 
+}
+function addInputFunc1() {
+    const eventText = eventsInput[1].textContent;
+    const eventPush = {
+        id: eventsInput[1].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
 
+}
+function addInputFunc2() {
+    const eventText = eventsInput[2].textContent;
+    const eventPush = {
+        id: eventsInput[2].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
+
+}
+function addInputFunc3() {
+    const eventText = eventsInput[3].textContent;
+    const eventPush = {
+        id: eventsInput[3].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
+
+}
+function addInputFunc4() {
+    const eventText = eventsInput[4].textContent;
+    const eventPush = {
+        id: eventsInput[4].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
+
+}
+function addInputFunc5() {
+    const eventText = eventsInput[5].textContent;
+    const eventPush = {
+        id: eventsInput[5].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
+
+}
+function addInputFunc6() {
+    const eventText = eventsInput[6].textContent;
+    const eventPush = {
+        id: eventsInput[6].id,
+        events: [
+            {title: eventText}, 
+        ],
+    }
+    console.log(eventPush);
+    eventsArr.push(eventPush);
+    updateEvents();
+
+}
+eventsBtn[0].addEventListener("click", addInputFunc0);
+eventsBtn[1].addEventListener("click", addInputFunc1);
+eventsBtn[2].addEventListener("click", addInputFunc2);
+eventsBtn[3].addEventListener("click", addInputFunc3);
+eventsBtn[4].addEventListener("click", addInputFunc4);
+eventsBtn[5].addEventListener("click", addInputFunc5);
+eventsBtn[6].addEventListener("click", addInputFunc6);
+//querySelectAll取得的是元素节点组成的数组, 要把我们要的节点，从这个数组里取出来，才能给这个节点添加监听事件
