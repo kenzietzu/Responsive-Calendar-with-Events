@@ -33,7 +33,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-clr);
+  background: var(--primary-clr);  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #B2FEFA, var(--primary-clr));  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #B2FEFA, var(--primary-clr)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 h2 {
@@ -63,31 +66,12 @@ h2 {
   justify-content: space-between;
   color: var(--primary-clr-dark);
   background-color: #fff;
-  border-radius: 6px;
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px 1px #B2FEFA;
 }
 
 .this-month {
   font-size: 2.3rem;
-}
-
-/* set after behind the main element */
-.calendar::before,
-.calendar::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  width: 12px;
-  height: 97%;
-  background-color: #d3d4d6d7;
-  transform: translateY(-50%);
-  border-radius: 2px;
-}
-
-.calendar::before {
-  height: 94%;
-  left: calc(100% + 12px);
-  background-color: rgb(146, 169, 180);
 }
 
 .calendar .month-container {
@@ -155,8 +139,13 @@ h2 {
 
 .column li {
   margin-top: 10px;
-  color: #0088d7;
+  color: var(--primary-clr-dark);
   white-space: normal;
+  outline: none;
+}
+
+.column li:focus {
+  background-color: #f1f1f1;
 }
 
 .column .day {

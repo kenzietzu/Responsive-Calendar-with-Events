@@ -35,11 +35,13 @@ let weekArray = [];
 const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
 
 let eventsUl = document.querySelectorAll(".events");
+let eventsLi = document.querySelectorAll(".event-li");
 let eventsInput = document.querySelectorAll(".add-event-input");
 let eventsBtn = document.querySelectorAll(".add-btn");
 const addEventWrapper = document.querySelector(".add-event-wrapper");
 const addEventTitle = document.querySelector(".event-name ");
 const addEventSubmit = document.querySelector(".add-event-btn ");
+let eventsContainer = document.querySelector(".events");
 
 let updatedOnLoad = false;
 let eventsArr = [];
@@ -89,6 +91,7 @@ function buildCalendar() {
     eventsUl = document.querySelectorAll(".events");
     eventsInput = document.querySelectorAll(".add-event-input");
     eventsBtn = document.querySelectorAll(".add-btn");
+    eventsContainer = document.querySelector(".events");
 }
 
 function getMonday() {
@@ -258,15 +261,63 @@ function updateEvents() {
                 for (let k = 0; k < eventArr.events.length; k++) {
                     const item = document.createElement('li');
                     item.textContent = eventArr.events[k].title;
+                    item.classList.add('event-li');
                     eventsUl[i].appendChild(item);
+                    // item.contentEditable = true;
+                    item.spellcheck = false;
                 }
             }
         }
+        eventsLi = document.querySelectorAll(".event-li");
     });
     updatedOnLoad = true;
     updateSavedEvents();
 }
-console.log('---', eventsArr[0].textContent);
+
+// function updateItem() {
+//     for (let i = 0; i < eventsLi.length; i++) {
+//        if (!eventsLi[i].textContent) {
+//         delete eventsLi[i];
+//        }
+//     }
+//     updateEvents();
+//     console.log('hi');
+// }
+
+// eventsLi.forEach( (i) => {
+//     i.addEventListener('focusout', () => {
+//         for (let i = 0; i < eventsLi.length; i++) {
+//             if (!eventsLi[i].textContent) {
+//              delete eventsLi[i];
+//             }
+//          }
+//          updateEvents();
+//          console.log('hi');
+//     } );
+// })
+
+// eventsContainer.addEventListener("click", (e) => {
+//         console.log(e);
+//         console.log(e.target.childNodes[0].textContent);
+//     }
+// );
+
+eventsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("event-li")) {
+        if (confirm("Are you sure you want to delete this event?")) {
+            const eventTitle = e.target.childNodes[0].textContent;
+            eventsArr.forEach((event) => {
+                    event.events.forEach((item, index) => {
+                        if (item.title === eventTitle) {
+                            event.events.splice(index, 1);
+                        }
+                    });
+                    
+                });
+            updateEvents();
+        }
+    }
+});
 
 function addInputFunc0() {
     const eventText = eventsInput[0].textContent;
@@ -276,8 +327,8 @@ function addInputFunc0() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[0].textContent = ''; //消除輸入的舊文字
     updateEvents();
 
 }
@@ -289,8 +340,8 @@ function addInputFunc1() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[1].textContent = '';
     updateEvents();
 
 }
@@ -302,8 +353,8 @@ function addInputFunc2() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[2].textContent = '';
     updateEvents();
 
 }
@@ -315,8 +366,8 @@ function addInputFunc3() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[3].textContent = '';
     updateEvents();
 
 }
@@ -328,8 +379,8 @@ function addInputFunc4() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[4].textContent = '';
     updateEvents();
 
 }
@@ -341,8 +392,8 @@ function addInputFunc5() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[5].textContent = '';
     updateEvents();
 
 }
@@ -354,11 +405,12 @@ function addInputFunc6() {
             {title: eventText}, 
         ],
     }
-    console.log(eventPush);
     eventsArr.push(eventPush);
+    eventsInput[6].textContent = '';
     updateEvents();
 
 }
+
 eventsBtn[0].addEventListener("click", addInputFunc0);
 eventsBtn[1].addEventListener("click", addInputFunc1);
 eventsBtn[2].addEventListener("click", addInputFunc2);
