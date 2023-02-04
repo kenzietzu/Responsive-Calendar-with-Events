@@ -33,6 +33,7 @@ const months = [
 let id = [];
 let weekArray = [];
 const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
+let todayText;
 
 let eventsUl = document.querySelectorAll(".events");
 let eventsLi = document.querySelectorAll(".event-li");
@@ -52,6 +53,7 @@ function getToday() {
     for (let i = 0; i < 7; i++) {
         if (id[i] === todayId) {
             todayTag[i].classList.add('today');
+            todayText = `${currYear}${months[currMonth]}${weekArray[i]}`;
         }
     }
 }
@@ -105,6 +107,7 @@ function getMonday() {
 
 function initCalendar() {
     getMonday();
+    getToday();
     currMonth = realToday.getMonth();
     currYear = realToday.getFullYear();
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
@@ -126,7 +129,6 @@ function initCalendar() {
 
     buildCalendar();
     updateEvents();
-    getToday();
 }
 
 initCalendar();
@@ -175,118 +177,26 @@ function getNextWeek() {
     eventsBtn[4].addEventListener("click", addInputFunc4);
     eventsBtn[5].addEventListener("click", addInputFunc5);
     eventsBtn[6].addEventListener("click", addInputFunc6);
-    eventsUl[0].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
+    //該週每天的ul標籤
+    eventsUl.forEach( (ul) => {
+        ul.addEventListener("click", (e) => {
+            if (e.target.classList.contains("event-li")) {
+                if (confirm("Are you sure you want to delete this event?")) {          //所點擊目標的文字
+                    const eventTitle = e.target.childNodes[0].textContent;
+                    const parent = e.target.parentNode.id;
+                    //所有的events
+                    eventsArr.forEach((event) => {
+                            event.events.forEach((item, index) => {
+                                if (item.title === eventTitle && parent === event.id) {
+                                    event.events.splice(index, 1);
+                                }
+                            });    
                         });
-                        
-                    });
-                updateEvents();
+                    updateEvents();
+                }
             }
-        }
-    });
-    eventsUl[1].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[2].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[3].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[4].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[5].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[6].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
+        });
+    })
 }
 
 function getLastWeek() {
@@ -319,118 +229,26 @@ function getLastWeek() {
     eventsBtn[4].addEventListener("click", addInputFunc4);
     eventsBtn[5].addEventListener("click", addInputFunc5);
     eventsBtn[6].addEventListener("click", addInputFunc6);
-    eventsUl[0].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
+    //該週每天的ul標籤
+    eventsUl.forEach( (ul) => {
+        ul.addEventListener("click", (e) => {
+            if (e.target.classList.contains("event-li")) {
+                if (confirm("Are you sure you want to delete this event?")) {          //所點擊目標的文字
+                    const eventTitle = e.target.childNodes[0].textContent;
+                    const parent = e.target.parentNode.id;
+                    //所有的events
+                    eventsArr.forEach((event) => {
+                            event.events.forEach((item, index) => {
+                                if (item.title === eventTitle && parent === event.id) {
+                                    event.events.splice(index, 1);
+                                }
+                            });    
                         });
-                        
-                    });
-                updateEvents();
+                    updateEvents();
+                }
             }
-        }
-    });
-    eventsUl[1].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[2].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[3].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[4].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[5].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
-    eventsUl[6].addEventListener("click", (e) => {
-        if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
-                const eventTitle = e.target.childNodes[0].textContent;
-                eventsArr.forEach((event) => {
-                        event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
-                                event.events.splice(index, 1);
-                            }
-                        });
-                        
-                    });
-                updateEvents();
-            }
-        }
-    });
+        });
+    })
 }
 
 prev.addEventListener("click", getLastWeek);
@@ -447,22 +265,16 @@ function updateSavedEvents() {
 }                        
 
 function getSavedEvents() {
+    getToday();
+    console.log('tt:', todayText);
     if (localStorage.getItem("events")) {
         eventsArr.push(...JSON.parse(localStorage.getItem("events")));
     } else {
         eventsArr = [
             {
-                id: '2023JAN25',
+                id: todayText,
                 events: [
                     {title: '滑鼠點擊即可刪除',}, 
-                    {title: 'delete o click',},
-                ],
-            },
-            {
-                id: '2023FEB2',
-                events: [
-                    {title: '滑鼠點擊即可刪除',}, 
-                    {title: 'delete o click',},
                 ],
             },
         ];
@@ -497,18 +309,20 @@ function updateEvents() {
     updateSavedEvents();
 }
 
+//該週每天的ul標籤
 eventsUl.forEach( (ul) => {
     ul.addEventListener("click", (e) => {
         if (e.target.classList.contains("event-li")) {
-            if (confirm("Are you sure you want to delete this event?")) {
+            if (confirm("Are you sure you want to delete this event?")) {          //所點擊目標的文字
                 const eventTitle = e.target.childNodes[0].textContent;
+                const parent = e.target.parentNode.id;
+                //所有的events
                 eventsArr.forEach((event) => {
                         event.events.forEach((item, index) => {
-                            if (item.title === eventTitle) {
+                            if (item.title === eventTitle && parent === event.id) {
                                 event.events.splice(index, 1);
                             }
-                        });
-                        
+                        });    
                     });
                 updateEvents();
             }
@@ -616,3 +430,4 @@ eventsBtn[4].addEventListener("click", addInputFunc4);
 eventsBtn[5].addEventListener("click", addInputFunc5);
 eventsBtn[6].addEventListener("click", addInputFunc6);
 //querySelectAll取得的是元素节点组成的数组, 要把我们要的节点，从这个数组里取出来，才能给这个节点添加监听事件
+
