@@ -441,9 +441,6 @@ todayBtn.addEventListener("click", () => {
     initCalendar();
 });
 
-// console.log(eventsArr[0].id); //id
-// console.log(eventsArr[1].events[0].title); //task
-// console.log(eventsUl[1].id); //Ul id
 
 function updateSavedEvents() {
     localStorage.setItem("events", JSON.stringify(eventsArr));
@@ -458,14 +455,14 @@ function getSavedEvents() {
                 id: '2023JAN25',
                 events: [
                     {title: '滑鼠點擊即可刪除',}, 
-                    {title: 'delete on click',},
+                    {title: 'delete o click',},
                 ],
             },
             {
                 id: '2023FEB2',
                 events: [
                     {title: '滑鼠點擊即可刪除',}, 
-                    {title: 'delete on click',},
+                    {title: 'delete o click',},
                 ],
             },
         ];
@@ -485,10 +482,12 @@ function updateEvents() {
                 for (let k = 0; k < eventArr.events.length; k++) {
                     const item = document.createElement('li');
                     item.textContent = eventArr.events[k].title;
-                    item.classList.add('event-li');
-                    eventsUl[i].appendChild(item);
-                    // item.contentEditable = true;
-                    item.spellcheck = false;
+                    if (item.textContent) {
+                        item.classList.add('event-li');
+                        item.setAttribute('id', id[i]);
+                        eventsUl[i].appendChild(item);
+                        item.spellcheck = false;
+                    }
                 }
             }
         }
@@ -498,146 +497,24 @@ function updateEvents() {
     updateSavedEvents();
 }
 
-// function updateItem() {
-//     for (let i = 0; i < eventsLi.length; i++) {
-//        if (!eventsLi[i].textContent) {
-//         delete eventsLi[i];
-//        }
-//     }
-//     updateEvents();
-//     console.log('hi');
-// }
-
-// eventsLi.forEach( (i) => {
-//     i.addEventListener('focusout', () => {
-//         for (let i = 0; i < eventsLi.length; i++) {
-//             if (!eventsLi[i].textContent) {
-//              delete eventsLi[i];
-//             }
-//          }
-//          updateEvents();
-//          console.log('hi');
-//     } );
-// })
-
-// eventsContainer.addEventListener("click", (e) => {
-//         console.log(e);
-//         console.log(e.target.childNodes[0].textContent);
-//     }
-// );
-
-eventsUl[0].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
+eventsUl.forEach( (ul) => {
+    ul.addEventListener("click", (e) => {
+        if (e.target.classList.contains("event-li")) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                const eventTitle = e.target.childNodes[0].textContent;
+                eventsArr.forEach((event) => {
+                        event.events.forEach((item, index) => {
+                            if (item.title === eventTitle) {
+                                event.events.splice(index, 1);
+                            }
+                        });
+                        
                     });
-                    
-                });
-            updateEvents();
+                updateEvents();
+            }
         }
-    }
-});
-eventsUl[1].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
-eventsUl[2].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
-eventsUl[3].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
-eventsUl[4].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
-eventsUl[5].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
-eventsUl[6].addEventListener("click", (e) => {
-    if (e.target.classList.contains("event-li")) {
-        if (confirm("Are you sure you want to delete this event?")) {
-            const eventTitle = e.target.childNodes[0].textContent;
-            eventsArr.forEach((event) => {
-                    event.events.forEach((item, index) => {
-                        if (item.title === eventTitle) {
-                            event.events.splice(index, 1);
-                        }
-                    });
-                    
-                });
-            updateEvents();
-        }
-    }
-});
+    });
+})
 
 function addInputFunc0() {
     const eventText = eventsInput[0].textContent;
