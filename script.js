@@ -32,7 +32,7 @@ const months = [
 
 let id = [];
 let weekArray = [];
-const dayArray = ['MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT', 'SUN'];
+const dayArray = ['SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
 let todayText;
 
 let eventsUl = document.querySelectorAll(".events");
@@ -85,7 +85,7 @@ function buildCalendar() {
         column.append(day, date, event, addInput, addBtn);
         weekContainer.append(column);
         
-        if (day.textContent === dayArray[6] || day.textContent === dayArray[5]) {
+        if (day.textContent === dayArray[0] || day.textContent === dayArray[6]) {
             column.classList.add('column-dark');
         }
         
@@ -97,15 +97,15 @@ function buildCalendar() {
 }
 
 function getMonday() {
-    nowMon = new Date();
-    console.log('nowMon:', nowMon);
-    console.log(today);
-    const first = today.getDate() - today.getDay() + 1;
+    console.log('nowFirstDay:', nowMon);
+    console.log('today:', today);
+    const first = today.getDate() - today.getDay();
     thisMon = new Date(today.setDate(first));
-    console.log('this Monday: ', thisMon);
+    console.log('this FirstDay: ', thisMon);
 }
 
 function initCalendar() {
+    nowMon = new Date(); //重設nowMon
     getMonday();
     getToday();
     currMonth = realToday.getMonth();
@@ -126,7 +126,6 @@ function initCalendar() {
     }
     console.log(weekArray);
     console.log(id);
-
     buildCalendar();
     updateEvents();
 }
@@ -134,17 +133,17 @@ function initCalendar() {
 initCalendar();
 
 function getNextMonday() {
-    console.log('nowMon:', nowMon);
-    const next = nowMon.getDate() - nowMon.getDay() + 8;
+    console.log('nowFirstDay:', nowMon);
+    const next = nowMon.getDate() - nowMon.getDay() + 7;
     nextMon = new Date(nowMon.setDate(next));
-    console.log('nowMon:', nowMon);
+    console.log('nowFirstDay:', nowMon);
 }
 
 function getLastMonday() {
-    console.log('nowMon:', nowMon);
-    const last = nowMon.getDate() - nowMon.getDay() - 6;
+    console.log('nowFirstDay:', nowMon);
+    const last = nowMon.getDate() - nowMon.getDay() - 7;
     lastMon = new Date(nowMon.setDate(last));
-    console.log('nowMon:', nowMon);
+    console.log('nowFirstDay:', nowMon);
 }
 
 function getNextWeek() {
@@ -153,7 +152,7 @@ function getNextWeek() {
     currMonth = nextMon.getMonth();
     currYear = nextMon.getFullYear();
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
-    console.log('this Monday: ', nextMon);
+    console.log('this FirstDay: ', nextMon);
     weekArray[0] = nextMon.getDate();
     currMonth = nextMon.getMonth();
     currYear = nextMon.getFullYear();
@@ -166,7 +165,7 @@ function getNextWeek() {
         id[i] = `${currYear}${months[currMonth]}${weekArray[i]}`;
     }
     console.log(weekArray);
- 
+    console.log(id);
     buildCalendar();
     updateEvents();
     getToday();
@@ -205,7 +204,7 @@ function getLastWeek() {
     currMonth = lastMon.getMonth();
     currYear = lastMon.getFullYear();
     monthTag.innerHTML = `${months[currMonth]} ${currYear}`;
-    console.log('this Monday: ', lastMon);
+    console.log('this FirstDay: ', lastMon);
     weekArray[0] = lastMon.getDate();
     currMonth = lastMon.getMonth();
     currYear = lastMon.getFullYear();
@@ -218,7 +217,7 @@ function getLastWeek() {
         id[i] = `${currYear}${months[currMonth]}${weekArray[i]}`;
     }
     console.log(weekArray);
-    
+    console.log(id);
     buildCalendar();
     updateEvents();
     getToday();
